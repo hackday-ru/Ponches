@@ -16,16 +16,20 @@ def listener(messages):
         connection=apsw.Connection("db.db3")
         cursor=connection.cursor()
         cursor.execute('SELECT * FROM db')
+        if m.text == "/start":
+            bot.send_message(m.chat.id, "PONCHes is POints iN CHats.\nPonches != Money, cash or smtn else. It's fun, goods && Rock'N'Roll\nLet put some keys: ")
+        if m.text == "/partners":
+
         if m.content_type == 'text':
 
                 for row in cursor:
 
 
                         if m.text == row[0]:
-                            strn = 'You get ' + str(row[1]) + ' points from ' + row[2]
+                            strn = 'You get ' + str(row[1]) + ' ponches from ' + row[2]
                             bot.send_message(m.chat.id, strn)
                             userpoint += row[1]
-                            strn = 'Now you have ' + str(userpoint) + ' points'
+                            strn = 'Now you have ' + str(userpoint) + ' ponches'
                             bot.send_message(m.chat.id, strn)
         cursor.close()
 
@@ -33,6 +37,7 @@ def listener(messages):
 if __name__=='__main__':
     username = 0
     bot = telebot.TeleBot(config.token)
+
     bot.set_update_listener(listener)
     bot.polling(none_stop=True)
     while True:
